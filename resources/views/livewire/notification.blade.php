@@ -1,0 +1,3 @@
+<div>
+    <x-toast /> 
+</div>
