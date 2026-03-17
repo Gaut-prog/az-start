@@ -281,5 +281,8 @@
     "Accédez aux principales fonctionnalités pour la gestion de vos activités.": "Access the main features for managing your activities.",
     "Veuillez choisir un compte": "Please choose an account",
     "Changer d'entreprise": "Switch companies",
-    "Connecté": "Connected"
+    "Connecté": "Connected",
+    "Votre entreprise n'est pas active sur az-companies.com": "Your company is not active on az-companies.com",
+    "Base de données introuvable": "Database not found",
+    "L'abonnement de votre entreprise est expirée, veuillez le renouveler": "Your company’s subscription has expired, please renew it"
 }
