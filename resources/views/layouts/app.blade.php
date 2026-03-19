@@ -95,7 +95,7 @@
                 </x-slot:sidebar>
 
                 {{-- The `$slot` goes here --}}
-                <x-slot:content>
+                <x-slot:content class="min-h-screen">
                     {{ $slot }}
                 </x-slot:content>
                 <x-slot:footer>

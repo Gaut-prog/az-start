@@ -3,7 +3,7 @@
 By installing this project, you will have somes features availables, such as:
 
 - Tables Models.
-- Tailwind css as default framework and few html components.
+- Tailwind css version 3 as default framework and few html components.
 - Laravel livewire package to build SPA project if you want.
 - Login logiques and switch companies.
 - Payment methods.
@@ -12,7 +12,11 @@ By installing this project, you will have somes features availables, such as:
 * This project use the components of the CSS library MaryUI
     You can find the documentation [here](https://v1.mary-ui.com).
     The differents icons used can be found [here](https://blade-ui-kit.com/blade-icons)
+    *If you don't want to use this library, you can remove it by runing: composer remove robsontenorio/mary*
+
 * It use [Livewire 4](https://livewire.laravel.com), [Laravel 11.*](https://laravel.com/docs/11.x/installation)
+
+* Set the name of your project in config/app file, key name
 
 ## How use it ?
 - copy the file .env.example and rename it to .env, then put your configuration keys
