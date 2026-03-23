@@ -39,12 +39,14 @@ new class extends Component
 
             $user = User::with('customer')->where('customer_number', $codecheck - $config_value)
                 ->where('passW', md5($this->password))
+                ->where('status', 1)
                 ->first();
         }
         else
         {
             $user = User::with('customer')->where('userN', $this->email)
                 ->where('passW', md5($this->password))
+                ->where('status', 1)
                 ->first();
         }
         if(!$user)

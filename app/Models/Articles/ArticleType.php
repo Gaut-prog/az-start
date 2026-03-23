@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Articles;
 
+use App\Models\Article;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ArticleType extends Model
 {
@@ -12,22 +14,21 @@ class ArticleType extends Model
     protected $table = 'article_type';
     protected $primaryKey = 'id_article_type';
     protected $connection = 'mysql2';
-
-
     public $timestamps = false;
 
-    // Colonnes modifiables
     protected $fillable = [
         'Label',
         'en_Label',
         'Note',
     ];
 
-    /**
-     * Retourne le label selon la langue de l'application
-     */
     public function getTLabelAttribute(): ?string
     {
         return app()->getLocale() === 'fr' ? $this->Label : $this->en_Label;
+    }
+
+    public function articles() : HasMany
+    {
+        return $this->hasMany(Article::class, 'article_type', 'id_article_type');
     }
 }

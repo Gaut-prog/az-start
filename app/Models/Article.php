@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Articles\ArticleComment;
+use App\Models\Articles\ArticleType;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Model
 {
@@ -89,24 +92,29 @@ class Article extends Model
     {
         return $this->belongsTo(Item::class, 'related_item', 'Items_Numbers');
     }
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(Customer::class, 'created_by', 'Customers_Numbers');
     }
-    public function editor()
+    public function editor(): BelongsTo
     {
         return $this->belongsTo(Customer::class, 'last_update_user', 'Customers_Numbers');
+    }
+    
+    public function comments(): HasMany
+    {
+        return $this->hasMany(ArticleComment::class, 'article_id', 'id_article');
     }
 
     protected static function booted(): void
     {
         static::creating(function (Article $article) {
             $article->created_by = auth()->user()->customer_number ?? 'WebUser';
-            $article->creation_date = date('Y-m-d H:i:s');
+            $article->creation_date = now();
         });
         
         static::updating(function (Article $article) {
-            $article->last_update_date = date('Y-m-d H:i:s');
+            $article->last_update_date = now();
             $article->last_update_user = auth()->user()->customer_number ?? 'WebUser';
         });
     }
