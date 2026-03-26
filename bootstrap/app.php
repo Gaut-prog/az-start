@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\LoginUserFromAZToken;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             SetLocale::class,
+            LoginUserFromAZToken::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

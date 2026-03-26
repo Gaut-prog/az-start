@@ -268,4 +268,12 @@ class Helpers
         return $tab[0] == 'fr' || $tab[0] == 'FR' ? 'fr' : 'en'; 
     }
 
+    public static function getUrl(string $url) : string
+    {
+        if($user = auth()->user()){
+            $url = $url . (str_contains($url, '?') ? '&' : '?'). 'az_token=' . $user->access_token;
+        }
+        return $url; 
+    }
+
 }

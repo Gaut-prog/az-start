@@ -135,9 +135,46 @@ class User extends Authenticatable
         return Session::get('user_current_country');
     }
     
+    //Modifier le pays courant de l'utilisateur
     public function setCurrentCountryAttribute(string $code) : void
     {
         Session::put('user_current_country', $code);
+    }
+
+    //Récupérer le rôle de l'utilisateur connecté dans l'entreprise actuelle
+    public function getRoleAttribute() : string
+    {
+        $type = $this->linked_company['type'] ?? 'webbuyer';
+        
+        return match ($type) {
+            'trainingadmin' => "Administrateur",
+            'webcashier' => "Caissier",
+            'webdeliver' => "Livreur",
+            'webmanager' => "Gérant",
+            'webtreasurer' => "Trésorier",
+            'webhr' => "Directeur RH",
+            'webaccountant' => "Comptable",
+            'webcommercial' => "Commercial",
+            'webmaster' => "Webmaster",
+            'webwarehouseman' => "Magasinier",
+            'trainingteacher' => "Enseignant",
+            'webcompany' => "Entreprise",
+            'webgroup' => "Groupe",
+            default => "Personnel",
+        };
+    }
+    
+    //Token pour autorier l'utilisateur à acceder aux plateformes AZ sans se connecter
+    public function getAccessTokenAttribute() : string
+    {
+        $access_token = Session::get('access_token');
+        if(!$access_token){
+            $company_id = $this->linked_company['Customers_Numbers'] ?? 'webbuyer';
+            $access_token = sha1('token').'//'. $this->id_credential.'//'.md5($this->userN).sha1('minou') .'//'. $company_id .'//'.uniqid();
+            Session::put('access_token', $access_token);
+        }
+        
+        return $access_token;
     }
 
     protected static function booted(): void
